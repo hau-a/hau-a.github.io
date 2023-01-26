@@ -3,10 +3,10 @@ body {
 }
 
 .container-header {
-    margin: 2%;
+    margin: 20px;
     padding-bottom: 25px;
     border: 1px solid black;
-    width: 60%;
+    width: 750px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -39,21 +39,25 @@ h1 {
 
 #nature {
     font-size: 25px;
+    margin-left: 45px;
     margin-bottom: 4px;
 }
 
 .container-images {
-    margin-top: 7%;
-    margin-bottom: 3%;
+    margin-top: 50px;
+    margin-bottom: 15px;
     margin-left: auto;
     margin-right: auto;
-    width: 70%;
+    width: 900px;
 }
 
 .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    width: 810px;
     grid-gap: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .grid img {
@@ -65,15 +69,19 @@ h1 {
 /* ---------------------------------------------- */
 
 #container-copyright {
-    margin: 2%;
+    margin: 30px;
     font-size: 12px;
     font-weight: 300;
     font-style: italic;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
 }
 
 #container-socials {
-    margin: 2%;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
 }
 
