@@ -1,0 +1,37 @@
+{
+  "components": [
+    {
+      "data": {
+        "contents_checksum": "405f37fbacbc8e2d9f5b0c88378b927cd62fcd6a6eb6d165478eb73821aea935",
+        "source": "",
+        "type": "tar"
+      },
+      "dependencies": [
+        "app-engine-grpc",
+        "cloud-datastore-emulator",
+        "core"
+      ],
+      "details": {
+        "description": "Provides the tools required to develop Python and PHP applications using gcloud.",
+        "display_name": "gcloud app Python Extensions"
+      },
+      "id": "app-engine-python",
+      "is_configuration": false,
+      "is_hidden": false,
+      "is_required": false,
+      "platform": {},
+      "platform_required": false,
+      "version": {
+        "build_number": 20220826172526,
+        "version_string": "1.9.101"
+      }
+    }
+  ],
+  "revision": 20230130152419,
+  "schema_version": {
+    "no_update": false,
+    "url": "https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.tar.gz",
+    "version": 3
+  },
+  "version": "416.0.0"
+}

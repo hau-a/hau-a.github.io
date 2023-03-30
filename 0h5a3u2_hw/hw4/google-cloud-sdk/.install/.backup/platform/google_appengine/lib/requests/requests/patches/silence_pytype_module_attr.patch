@@ -1,0 +1,12 @@
+Index: requests/packages.py
+===================================================================
+--- requests.orig/packages.py
++++ requests/packages.py
+@@ -1,5 +1,7 @@
+ import sys
+ 
++_HAS_DYNAMIC_ATTRIBUTES = True
++
+ try:
+     import chardet
+ except ImportError:

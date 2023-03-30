@@ -1,0 +1,3 @@
+# Ignore pytype build errors due to dynamic module attributes in packages.py:
+# go/pytype-faq#im-dynamically-populating-a-class-module-using-setattr-or-by-modifying-locals-globals-now-pytype-complains-about-missing-attributes-or-module-members-how-do-i-fix-this
+silence_pytype_module_attr.patch
