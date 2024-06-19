@@ -1,0 +1,23 @@
+.eventDetails {
+    text-align: center;
+}
+
+.eventDetails>h4 {
+    font-size: 18px;
+    color: #72f3da;
+    margin-bottom: 0px;
+}
+
+.eventDetails>p {
+    font-size: 14px;
+    color: white;
+    margin-top: 5px;
+}
+
+.eventImage>img {
+    width: 98%;
+}
+
+#shareEvent {
+    text-align: center;
+}

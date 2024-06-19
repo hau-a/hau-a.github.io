@@ -1,0 +1,92 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+@import '@angular/material/theming';
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+// mat.define-palette takes in 4 arguments: a color palette, a default hue, a "lighter" hue, a  "darker" hue and a "text" hue. I have defined the default hue for the primary palette to be 
+// the default teal palette, which seems to be close enough. See more palettes here: 
+// https://m1.material.io/style/color.html#color-color-palette
+$frontend-primary: mat.define-palette($mat-teal);
+// $frontend-accent: mat.define-palette($mat-pink, A200, A100, A400);
+$frontend-accent: mat.define-palette($mat-indigo, 800, 700, 900);
+// The warn palette is optional (defaults to red).
+$frontend-warn: mat.define-palette(mat.$red-palette);
+
+// Configure and create the actual theme object to be imported. 
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$frontend-theme: mat.define-light-theme((color: (primary: $frontend-primary,
+        accent: $frontend-accent,
+        warn: $frontend-warn ),
+      typography: mat.define-typography-config(),
+      density: 0,
+    ));
+
+// Function that changes the theme text color from black to white
+@function app-light-theme-foreground($color) {
+  @return (base: $color,
+    divider: rgba($color, 0.38),
+    dividers: rgba($color, 0.38),
+    disabled: rgba($color, 0.38),
+    disabled-button: rgba($color, 0.38),
+    disabled-text: rgba($color, 0.38),
+    hint-text: rgba($color, 0.38),
+    secondary-text: rgba($color, 0.54),
+    icon: rgba($color, 0.54),
+    icons: rgba($color, 0.54),
+    text: rgba($color, 0.87),
+    slider-off: rgba($color, 0.26),
+    slider-off-active: rgba($color, 0.38),
+    slider-min: rgba($color, 0.38));
+}
+
+;
+
+// Merge the "white-foreground" text theme with the theme you created above
+$white-foreground: app-light-theme-foreground(white);
+$my-app-theme-custom: map-merge($frontend-theme, (foreground: $white-foreground));
+
+// manual styles
+.mat-mdc-tab-group.mat-tabs-with-background>.mat-mdc-tab-header .mdc-tab-indicator__content--underline,
+.mat-mdc-tab-group.mat-tabs-with-background>.mat-mdc-tab-header .mat-mdc-tab-header-pagination-chevron,
+.mat-mdc-tab-group.mat-tabs-with-background>.mat-mdc-tab-header .mat-mdc-focus-indicator::before {
+  border-color: #283593 !important; // active tab underline
+}
+
+.mat-mdc-tab-list>.mat-mdc-tab-labels {
+  // padding next to the tabs
+  margin-left: 15% !important;
+  margin-right: 15% !important;
+}
+
+@media (max-width: 576px) {
+  .mdc-tab__text-label {
+    font-size: 12px;
+  }
+  .mat-mdc-tab-list>.mat-mdc-tab-labels {
+    // padding next to the tabs
+    margin-left: 3% !important;
+    margin-right: 3% !important;
+  }
+
+  .mdc-tab.mat-mdc-tab.mat-mdc-focus-indicator.ng-star-inserted {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+  }
+}
+
+// Finally, import the theme object for use in your project
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($frontend-theme);

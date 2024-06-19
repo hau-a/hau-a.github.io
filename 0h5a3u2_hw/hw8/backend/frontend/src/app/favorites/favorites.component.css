@@ -1,0 +1,82 @@
+body {
+    /* font-family: 'Lato', sans-serif; */
+    background-image: url('../images/background.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    padding: 1%;
+}
+
+/********************* favorite events *********************/
+#favoritesContainer {
+    width: 70%;
+    margin-top: 3%;
+    overflow-x: auto;
+    /* enable horizontal scroll view if the table is too big */
+}
+
+h4 {
+    color: #70f2d7;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 2%;
+}
+
+.favorites-container-inner {
+    overflow: auto;
+}
+
+.favorites-container-inner>table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.fa {
+    cursor: pointer;
+}
+
+#no-results {
+    background-color: white;
+    border-radius: 15px;
+    text-align: center;
+    color: red;
+    width: 40%;
+    margin-top: 2%;
+}
+
+.my-google-map {
+    width: 100%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    display: flex;
+    justify-content: center;
+}
+
+/******** responsiveness for different sized screens ********/
+@media (max-width: 768px) {
+
+    /* small screens */
+    .navbar {
+        padding: 2%;
+    }
+
+    #favoritesContainer {
+        width: 95%;
+    }
+
+    h4 {
+        margin-bottom: 4%;
+    }
+
+    #no-results {
+        width: 70%;
+        margin-top: 10%;
+    }
+}

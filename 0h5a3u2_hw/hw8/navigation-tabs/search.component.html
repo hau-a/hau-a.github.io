@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="search.component.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="detailsContainer" class="container">
+        <p><i class="fa fa-angle-left"></i>&nbsp;<span>Back</span></p>
+        <h4>Event Name [favorite icon]</h4>
+
+        <ul class="nav nav-pills justify-content-center" id="detailsTabs" role="tablist">
+            <li class="nav-item" role="details" (click)="selectTab('tab1')">
+                <button class="nav-link active" id="events-tab" [ngClass]="{'active': selectedTab === 'tab1'}"
+                    data-bs-toggle="pill" data-bs-target="#events" type="button" role="tab" aria-controls="events"
+                    aria-selected="true">Events</button>
+            </li>
+            <li class="nav-item" role="details" (click)="selectTab('tab2')">
+                <button class="nav-link" id="artists-teams-tab" [ngClass]="{'active': selectedTab === 'tab2'}"
+                    data-bs-toggle="pill" data-bs-target="#artists-teams" type="button" role="tab"
+                    aria-controls="artists-teams" aria-selected="false">Artist/Teams</button>
+            </li>
+            <li class="nav-item" role="details" (click)="selectTab('tab3')">
+                <button class="nav-link" id="venue-tab" [ngClass]="{'active': selectedTab === 'tab3'}"
+                    data-bs-toggle="pill" data-bs-target="#venue" type="button" role="tab" aria-controls="venue"
+                    aria-selected="false">Venue</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="detailsTabContent">
+            <div class="tab-pane fade show active" [ngClass]="{'show active': selectedTab === 'tab1'}" id="events"
+                role="tabpanel" aria-labelledby="events-tab">
+                <div class="row">
+                    <div class="eventDetails col-md-5 col-sm-12">
+                        <h4>Date</h4>
+                        <p>2023-02-08</p>
+                        <h4>Artist</h4>
+                        <p>artist</p>
+                        <h4>Venue</h4>
+                        <p>venue</p>
+                        <h4>Genres</h4>
+                        <p>pop | r&b</p>
+                        <h4>Price Ranges</h4>
+                        <p>170-1560</p>
+                        <h4>Ticket Status</h4>
+                        <p>On Sale</p>
+                        <h4>Buy Ticket At:</h4>
+                        <p><a class="event-details-url" href="#" target="_blank">Ticketmaster</a></p>
+                    </div>
+                    <div class="eventImage col-md-7 col-sm-12">
+                        <img
+                            src="https://maps.ticketmaster.com/maps/geometry/3/event/0A005D6AC9DC43D8/staticImage?type=png&systemId=HOST">
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="shareEvent">Share on: [Twitter] [Facebook]</div>
+                </div>
+            </div>
+            <div class="tab-pane fade" [ngClass]="{'show active': selectedTab === 'tab2'}" id="artists-teams"
+                role="tabpanel" aria-labelledby="artists-teams-tab">
+                <div id="carouselSlide" class="carousel slide" data-bs-ride="carousel">
+                    <div class="row">
+                        <div class="carousel-col col-md-1 col-sm-2">
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselSlide"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                        </div>
+
+                        <div class="carousel-col col-md-10 col-sm-8">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active justify-content-center">
+                                    <div class="row">
+                                        <div class="col col-md-3 col-sm-12">
+                                            <h4>Artist</h4>
+                                        </div>
+                                        <div class="col col-md-3 col-sm-12">
+                                            <h5>Popularity</h5>
+                                        </div>
+                                        <div class="col col-md-3 col-sm-12">
+                                            <h5>Followers</h5>
+                                        </div>
+                                        <div class="col col-md-3 col-sm-12">
+                                            <h5>Spotify Link</h5>
+                                        </div>
+                                    </div>
+                                    <div id="artist-album" class="row">
+                                        <h6>Album featuring Artist</h6>
+                                        <div class="album col-md-4 col-sm-12">
+                                            <img
+                                                src="https://upload.wikimedia.org/wikipedia/en/0/06/NCT_127_-_2_Baddies.png">
+                                        </div>
+                                        <div class="album col-md-4 col-sm-12">
+                                            <img
+                                                src="https://upload.wikimedia.org/wikipedia/en/1/12/NCT_Dream_-_Glitch_Mode.jpg">
+                                        </div>
+                                        <div class="album col-md-4 col-sm-12">
+                                            <img
+                                                src="https://upload.wikimedia.org/wikipedia/en/2/29/Phantom_digital_cover.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <div class="row">
+                                        <div class="col col-md-3 col-sm-12">
+                                            <h4>Artist</h4>
+                                        </div>
+                                        <div class="col col-md-3 col-sm-12">
+                                            <h5>Popularity</h5>
+                                        </div>
+                                        <div class="col col-md-3 col-sm-12">
+                                            <h5>Followers</h5>
+                                        </div>
+                                        <div class="col col-md-3 col-sm-12">
+                                            <h5>Spotify Link</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <h6>Album featuring Artist</h6>
+                                        <div class="col-md-4 col-sm-12">
+                                            <img
+                                                src="https://upload.wikimedia.org/wikipedia/en/e/e1/NCT_-_Universe.png">
+                                        </div>
+                                        <div class="col-md-4 col-sm-12">
+                                            <img
+                                                src="https://upload.wikimedia.org/wikipedia/en/c/ca/NCT_127_-_Favorite.png">
+                                        </div>
+                                        <div class="col-md-4 col-sm-12">
+                                            <img
+                                                src="https://upload.wikimedia.org/wikipedia/en/4/4f/NCT_Dream_Hello_Future.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <div class="row">
+                                        <div class="col col-md-3 col-sm-12">
+                                            <h4>Artist</h4>
+                                        </div>
+                                        <div class="col col-md-3 col-sm-12">
+                                            <h5>Popularity</h5>
+                                        </div>
+                                        <div class="col col-md-3 col-sm-12">
+                                            <h5>Followers</h5>
+                                        </div>
+                                        <div class="col col-md-3 col-sm-12">
+                                            <h5>Spotify Link</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <h6>Album featuring Artist</h6>
+                                        <div class="col-md-4 col-sm-12">
+                                            <img
+                                                src="https://upload.wikimedia.org/wikipedia/en/3/36/Kick_Back_digital_cover.jpg">
+                                        </div>
+                                        <div class="col-md-4 col-sm-12">
+                                            <img
+                                                src="https://upload.wikimedia.org/wikipedia/en/4/42/NCT_2020_Resonance_Pt._1_cover.jpg">
+                                        </div>
+                                        <div class="col-md-4 col-sm-12">
+                                            <img
+                                                src="https://upload.wikimedia.org/wikipedia/en/9/9c/Awaken_the_World_digital_cover.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-col col-md-1 col-sm-2">
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselSlide"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" [ngClass]="{'show active': selectedTab === 'tab3'}" id="venue" role="tabpanel"
+                aria-labelledby="venue-tab">
+                <div class="row">
+                    <div class="venueDetails col-md-6 col-sm-12">
+                        <h4>Name</h4>
+                        <p>Crypto.com Arena</p>
+                        <h4>Address</h4>
+                        <p>1111 S. Figueroa St, Los Angeles, California</p>
+                        <h4>Phone Number</h4>
+                        <p>213-742-7340</p>
+                    </div>
+                    <div class="venueDetails col-md-6 col-sm-12">
+                        <h4>Open Hours</h4>
+                        <p>Open hours are ...</p>
+                        <h4>General Rule</h4>
+                        <p>No bottles, cans, or coolers. No smoking in arena. No cameras or recording...</p>
+                        <h4>Child Rule</h4>
+                        <p>Some events require all attendees, regardless of age, to present a ticket for entry. Please
+                            check the...</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="venueGoogleMap">[Show venue on Google Map]</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Merriweather:wght@300;400&display=swap"
+        rel="stylesheet">
+    <!-- icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Search</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <form class="form-inline ms-auto"> <!-- align navbar items to right with ms-auto -->
+            <button class="btn btn-outline-white text-white" type="button" routerLink="/search"
+                routerLinkActive="active">Search</button>
+            <button class="btn text-white" type="button" routerLink="/favorites">Favorites</button>
+        </form>
+    </nav>
+
+    <!-- search events -->
+    <div id="eventsContainer" class="container">
+        <h1 class="text-center">Events Search</h1>
+        <hr />
+
+        <form id="search-form" [formGroup]="searchForm" (ngSubmit)="onSubmit()" ngNativeValidate>
+            <!-- ngNativeValidate for default validation -->
+            <div class="form-group keyword-group">
+                <label for="keyword">Keyword&nbsp;<span class="text-danger">*</span></label>
+                <input type="text" id="keyword-id" matInput [formControl]="keywordControl" [matAutocomplete]="auto"
+                    class="form-control">
+                <!-- <mat-form-field style="margin-bottom:0%;"> -->
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngIf="isLoading" class="is-loading">
+                        <mat-spinner diameter="25" color="accent"></mat-spinner>
+                    </mat-option>
+                    <ng-container *ngIf="!isLoading">
+                        <!-- suggestion?.trim() to prevent trimming null value -->
+                        <mat-option *ngFor="let suggestion of keywordSuggestions" [value]="suggestion?.trim()">
+                            {{ suggestion }}
+                        </mat-option>
+                    </ng-container>
+                </mat-autocomplete>
+                <!-- </mat-form-field> -->
+                <!-- small please fill out field error -->
+            </div>
+            <div class="row">
+                <div class="col-md-7 col-sm-12">
+                    <div class="form-group">
+                        <label for="distance">Distance (miles)</label>
+                        <input type="number" id="distance-id" formControlName="distance" class="form-control"
+                            placeholder="10" step="1">
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-12">
+                    <div class="form-group">
+                        <label for="category">Category&nbsp;<span class="text-danger">*</span></label>
+                        <select class="form-control category-select" id="category-id" formControlName="category">
+                            <option selected value="">Default</option>
+                            <option value="KZFzniwnSyZfZ7v7nJ">Music</option>
+                            <option value="KZFzniwnSyZfZ7v7nE">Sports</option>
+                            <option value="KZFzniwnSyZfZ7v7na">Arts & Theatre</option>
+                            <option value="KZFzniwnSyZfZ7v7nn">Film</option>
+                            <option value="KZFzniwnSyZfZ7v7n1">Miscellaneous</option>
+                        </select>
+                        <!-- small please fill out field error -->
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="location">Location&nbsp;<span class="text-danger">*</span></label>
+                <!-- using reactive form, so uses formControl object -->
+                <!-- using [formControl]="locationControl" to clear location input box when checkbox is checked -->
+                <!-- [formControl]="locationCheckedControl" used to disable location-id when checkbox checked -->
+                <input type="text" id="location-id" [formControl]="locationControl" class="form-control" required>
+                <!-- small please fill out field error -->
+                <div class="form-check">
+                    <input type="checkbox" id="location-checkbox-id" [formControl]="locationCheckedControl"
+                        class="form-check-input" (change)="locationControl.setValue(''); disableLocation()">
+                    <label for="location-checkbox-id" class="form-check-label">Auto-Detect Location</label>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-danger" id="submit-btn">SUBMIT</button>
+                <button type="reset" class="btn btn-primary" id="clear-btn" (click)="clearFields()">CLEAR</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- search results -->
+    <div id="resultsContainer" class="container">
+        <div class="results-container-inner">
+            <table *ngIf="resultArray.length > 0 && showResults" class="table table-striped table-dark text-center">
+                <thead>
+                    <tr>
+                        <th scope="col-md-2 col-sm-3">Date/Time</th>
+                        <th scope="col-md-1 col-sm-2">Icon</th>
+                        <th scope="col-md-5 col-sm-3">Event</th>
+                        <th scope="col-md-1 col-sm-2">Genre</th>
+                        <th scope="col-md-3 col-sm-2">Venue</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="event-info" *ngFor="let result of resultArray" id="{{result.id}}"
+                        (click)="eventDetails(result.id, result._embedded?.venues?.[0]?.name)">
+                        <td>{{ result.dates?.start?.localDate }}<br>{{ result.dates?.start?.localTime }}</td>
+                        <td><img [src]="result.images[0]?.url" width="90"></td>
+                        <td class="event-name">{{ result.name }}</td>
+                        <td>{{ result.classifications?.[0]?.segment?.name }}</td>
+                        <td>{{ result._embedded?.venues?.[0]?.name }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div *ngIf="resultArray.length === 0 && showResults" id="no-results" class="container">
+            No results available
+        </div>
+    </div>
+
+    <!-- details card -->
+    <div *ngIf="showDetails" id="detailsContainer" class="container">
+        <p><i class="fa fa-angle-left"></i>&nbsp;<span (click)="backToResults()">Back</span></p>
+        <h4>
+            {{ event!.name }}
+            <button class="favoriteButton" (click)="favoriteEvent()">
+                <span class="stackIcons">
+                    <a class="not-fav" *ngIf="!isFavorite"></a>
+                    <a class="fav" *ngIf="isFavorite"></a>
+                </span>
+            </button>
+        </h4>
+
+        <mat-tab-group mat-align-tabs="center" backgroundColor="primary" class="tab-group">
+            <mat-tab label="Events" class="tab">
+                <div id="events-tab" style="padding-top:5%; padding-bottom:5%;">
+                    <div class="row mx-0 no-gutters">
+                        <div class="eventDetails col-md-5 col-sm-12">
+                            <h4 *ngIf="isNonEmptyString(event!.date)">Date</h4>
+                            <p>{{ event!.date }}</p>
+                            <h4 *ngIf="isNonEmptyString(attractionNames)">Artist/Team</h4>
+                            <p>{{ attractionNames }}</p>
+                            <h4 *ngIf="isNonEmptyString(event!.venue)">Venue</h4>
+                            <p>{{ event!.venue }}</p>
+                            <h4 *ngIf="isNonEmptyString(event!.segment)">Genres</h4>
+                            <p>
+                                <span *ngIf="isNonEmptyString(event!.segment)">{{ event!.segment }}</span>
+                                <span *ngIf="isNonEmptyString(event!.genre)"> | {{ event!.genre }}</span>
+                                <span *ngIf="isNonEmptyString(event!.subGenre)"> | {{ event!.subGenre }}</span>
+                                <span *ngIf="isNonEmptyString(event!.type)"> | {{ event!.type }}</span>
+                                <span *ngIf="isNonEmptyString(event!.subType)"> | {{ event!.subType }}</span>
+                            </p>
+                            <h4 *ngIf="event!.priceMin">Price Ranges</h4>
+                            <p *ngIf="event!.priceMin">
+                                {{ event!.priceMin }}
+                                <span *ngIf="event!.priceMax">- {{ event!.priceMax }}</span>
+                            </p>
+                            <h4 *ngIf="isNonEmptyString(event!.status)">Ticket Status</h4>
+                            <p style="margin-top:10px;">
+                                <span class="event-details-status" [ngStyle]="{'background-color': event!.statusColor}">
+                                    {{ event!.status }}
+                                </span>
+                            </p>
+                            <h4 *ngIf="isNonEmptyString(event!.url)">Buy Ticket At:</h4>
+                            <p><a class="event-details-url" href="{{event!.url}}" target="_blank">Ticketmaster</a></p>
+                        </div>
+                        <div class="eventImage col-md-7 col-sm-12">
+                            <img class="mx-auto" src="{{event!.seatmap}}">
+                        </div>
+                    </div>
+                    <div class="row mx-0 no-gutters">
+                        <div id="shareEvent">
+                            Share on:
+                            <a href="https://twitter.com/intent/tweet?text=Check out {{event!.name}} on Ticketmaster {{event!.url}}"
+                                class="fa fa-twitter" target="_blank"></a>
+                            <a target="_blank"
+                                href="https://www.facebook.com/sharer/sharer.php?u={{event!.url}}&amp;src=sdkpreparse"
+                                class="fa fa-facebook"></a>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Artists/Teams" class="tab">
+                <div id="artist-team-tab justify-content-center">
+                    <ngb-carousel #carousel [interval]="0" [showNavigationArrows]="spotifyArtists.length > 1"
+                        [showNavigationIndicators]="false">
+                        <ng-template ngbSlide *ngFor="let artist of spotifyArtists;">
+                            <div class="artist-item pt-lg-5 pt-md-3">
+                                <div class="row">
+                                    <div class="artist-info col-lg-4 col-md-12">
+                                        <!-- image in a circle here -->
+                                        <img class="centered" src="{{artist!.image}}">
+                                        <h4>{{ artist!.name }}</h4>
+                                    </div>
+                                    <div class="artist-info popularity col-lg-3 col-md-12 pt-lg-5 pt-md-3">
+                                        <h5>Popularity</h5>
+                                        <div style="position: relative; height: 50px;">
+                                            <mat-progress-spinner color="warn" mode="determinate" diameter="35"
+                                                value="{{artist!.popularity}}" style="position:absolute; left:42%;">
+                                            </mat-progress-spinner>
+                                            <h6 style="font-size:12px; color:white; position:absolute; left:45%; top:19%;">
+                                                {{ artist!.popularity }}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="artist-info followers col-lg-2 col-md-12 pt-lg-5 pt-md-3">
+                                        <h5>Followers</h5>
+                                        <p style="font-size:15px;">{{ artist!.followers.toLocaleString() }}</p>
+                                    </div>
+                                    <div class="artist-info spotify col-lg-3 col-md-12 pt-lg-5 pt-md-3">
+                                        <h5>Spotify Link</h5>
+                                        <p>
+                                            <a href="{{artist!.spotify}}" target="_blank" class="fa fa-spotify"></a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div id="artist-albums" class="row">
+                                    <h6>Albums featuring {{ artist!.name }}</h6>
+                                    <div class="album col-lg-4 col-md-12  justify-content-center">
+                                        <img src="{{artist!.albums[0]}}">
+                                    </div>
+                                    <div class="album col-lg-4 col-md-12 justify-content-center">
+                                        <img src="{{artist!.albums[1]}}">
+                                    </div>
+                                    <div class="album col-lg-4 col-md-12  justify-content-center">
+                                        <img src="{{artist!.albums[2]}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-carousel>
+                </div>
+
+                <div *ngIf="event.segment !== 'Music' || spotifyArtists.length == 0" id="no-music-results">
+                    <div class="container">
+                        No music related artist details to show
+                    </div>
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Venue" class="tab">
+                <div id="venue-tab" style="padding-top:5%; padding-bottom:5%;">
+                    <div class="row mx-0 no-gutters">
+                        <div class="venueDetails col-md-6 col-sm-12">
+                            <!-- check if any of the values are empty -->
+                            <h4 *ngIf="isNonEmptyString(venue!.name)">Name</h4>
+                            <p>{{ venue!.name }}</p>
+                            <h4 *ngIf="isNonEmptyString(venue!.address)">Address</h4>
+                            <p>{{ venue!.address}}, {{ venue!.city }}{{ venue!.state ? ', ' + venue!.state : '' }}</p>
+                            <h4 *ngIf="isNonEmptyString(venue!.phoneNumberDetail)">Phone Number</h4>
+                            <p>{{ venue!.phoneNumberDetail }}</p>
+                        </div>
+                        <div class="venueDetails col-md-6 col-sm-12">
+                            <h4 *ngIf="isNonEmptyString(venue!.openHoursDetail)">Open Hours</h4>
+                            <p class="paragraph" [ngClass]="{'expanded': showOpenHours}">{{ venue!.openHoursDetail }}
+                            </p>
+                            <a *ngIf="isNonEmptyString(venue!.openHoursDetail)"
+                                (click)="showOpenHours = !showOpenHours">
+                                {{ showOpenHours ? 'Show less': 'Show More' }}
+                                <i class="fa"
+                                    [ngClass]="{'fa-angle-up': showOpenHours, 'fa-angle-down': !showOpenHours}"></i>
+                            </a>
+                            <h4 *ngIf="isNonEmptyString(venue!.generalRule)" style="margin-top:20px;">General Rule</h4>
+                            <p class="paragraph" [ngClass]="{'expanded': showGeneralRule}">{{ venue!.generalRule }}</p>
+                            <a *ngIf="isNonEmptyString(venue!.generalRule)"
+                                (click)="showGeneralRule = !showGeneralRule">
+                                {{ showGeneralRule ? 'Show less': 'Show More' }}
+                                <i class="fa"
+                                    [ngClass]="{'fa-angle-up': showGeneralRule, 'fa-angle-down': !showGeneralRule}"></i>
+                            </a>
+                            <h4 *ngIf="isNonEmptyString(venue!.childRule)" style="margin-top:20px;">Child Rule</h4>
+                            <p class="paragraph" [ngClass]="{'expanded': showChildRule}">{{ venue!.childRule }}</p>
+                            <a *ngIf="isNonEmptyString(venue!.childRule)" (click)="showChildRule = !showChildRule">
+                                {{ showChildRule ? 'Show less': 'Show More' }}
+                                <i class="fa"
+                                    [ngClass]="{'fa-angle-up': showChildRule, 'fa-angle-down': !showChildRule}"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row mx-0 no-gutters">
+                        <div id="venueGoogleMap">
+                            <button type="button" class="btn btn-danger" (click)="showMap()">
+                                Show venue on Google Map
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show-modal': mapModal}">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Event Venue</h4>
+                                </div> 
+                                <div class="modal-body">
+                                    <div class="my-google-map" class="container">
+                                        <!-- change width of google-map depending on window size -->
+                                        <google-map *ngIf="innerWidth>=470" [center]="marker.position" [width]="450">
+                                            <map-marker [position]="marker.position"></map-marker>
+                                        </google-map>
+
+                                        <google-map *ngIf="innerWidth<470 && innerWidth>=400" [center]="marker.position" [width]="380">
+                                            <map-marker [position]="marker.position"></map-marker>
+                                        </google-map>
+
+                                        <google-map *ngIf="innerWidth<400 && innerWidth>=350" [center]="marker.position" [width]="330">
+                                            <map-marker [position]="marker.position"></map-marker>
+                                        </google-map>
+
+                                        <google-map *ngIf="innerWidth<350 && innerWidth>=310" [center]="marker.position" [width]="290">
+                                            <map-marker [position]="marker.position"></map-marker>
+                                        </google-map>
+
+                                        <google-map *ngIf="innerWidth<310 && innerWidth>=260" [center]="marker.position" [width]="240">
+                                            <map-marker [position]="marker.position"></map-marker>
+                                        </google-map>
+
+                                        <google-map *ngIf="innerWidth<260" [center]="marker.position" [width]="220">
+                                            <map-marker [position]="marker.position"></map-marker>
+                                        </google-map>
+                                    </div>
+                                    <br>
+                                    <button type="button" class="btn btn-dark" data-dismiss="modal"
+                                        (click)="hideMap()">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
+</body>
+
+</html>

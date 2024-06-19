@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Merriweather:wght@300;400&display=swap"
+        rel="stylesheet">
+    <!-- icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Favorites</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <form class="form-inline ms-auto"> <!-- align navbar items to right with ms-auto -->
+            <button class="btn text-white" type="button" routerLink="/search">Search</button>
+            <button class="btn btn-outline-white text-white" type="button" routerLink="/favorites"
+                routerLinkActive="active">Favorites</button>
+        </form>
+    </nav>
+
+    <!-- favorite events -->
+    <div *ngIf="totalFavoriteEvents>0" id="favoritesContainer" class="container">
+        <h4>List of your favorite events</h4>
+        <div class="favorites-container-inner">
+            <table class="table table-light table-hover text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col-md-2 col-sm-2">Date</th>
+                        <th scope="col-md-4 col-sm-3">Event</th>
+                        <th scope="col-md-2 col-sm-3">Category</th>
+                        <th scope="col-md-3 col-sm-2">Venue</th>
+                        <th scope="col-md-1 col-sm-2">Favorite</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let event of events; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ event.date }}</td>
+                        <td>{{ event.name }}</td>
+                        <td>{{ event.category }}</td>
+                        <td>{{ event.venue }}</td>
+                        <td id="{{event.id}}">
+                            <i class="fa fa-trash-o" (click)="removeFromFavorites(event.id)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div *ngIf="totalFavoriteEvents==0" id="no-results" class="container">
+        No favorite events to show
+    </div>
+</body>
+
+</html>

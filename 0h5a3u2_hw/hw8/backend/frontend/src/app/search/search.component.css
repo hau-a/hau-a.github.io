@@ -1,0 +1,424 @@
+body {
+    /* font-family: 'Lato', sans-serif; */
+    background-image: url('../images/background.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    padding: 1%;
+}
+
+/********************* search events *********************/
+#eventsContainer {
+    width: 45%;
+    background-color: rgba(128, 128, 128, 0.5);
+    padding: 1%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    margin-top: 3%;
+    border-radius: 10px;
+}
+
+h1 {
+    color: white;
+    font-family: 'Merriweather', serif;
+    font-size: 30px;
+    font-weight: 300;
+}
+
+hr {
+    border: 1px solid white;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    /* space between each form-group */
+}
+
+.form-check {
+    margin-top: 15px;
+    color: #6da7c0;
+}
+
+#search-form label {
+    color: #6da7c0;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.keyword-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group button {
+    margin-right: 2%;
+}
+
+/********************* events results *********************/
+#resultsContainer {
+    width: 60%;
+    margin-top: 3%;
+}
+
+.results-container-inner {
+    border-radius: 10px;
+    overflow: auto;
+}
+
+.event-info {
+    cursor: pointer;
+}
+
+#no-results {
+    background-color: white;
+    border-radius: 15px;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    text-align: center;
+    color: red;
+}
+
+/********************* details card *********************/
+#detailsContainer {
+    width: 60%;
+    background-color: rgba(128, 128, 128, 0.5);
+    margin-top: 3%;
+    padding: 0;
+    margin-bottom: 3%;
+}
+
+#detailsContainer>p {
+    padding: 1%;
+    color: white;
+}
+
+#detailsContainer>p>span {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#detailsContainer>h4 {
+    text-align: center;
+    color: white;
+    margin-bottom: 3%;
+    padding-left: 1%;
+    padding-right: 1%;
+    line-height: 1.6;
+}
+
+/* favorite icon */
+.favoriteButton {
+    border: none;
+    background-color: transparent;
+}
+
+.stackIcons>a {
+    text-decoration: none;
+}
+
+.not-fav::before {
+    cursor: pointer;
+    font-family: FontAwesome;
+    content: "\f004";
+    color: transparent;
+    font-size: 18px;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: gray;
+    background-color: white;
+    padding: 12px;
+    border-radius: 30px;
+}
+
+.fav::after {
+    font-family: FontAwesome;
+    content: "\f004";
+    color: red;
+    font-size: 18px;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: red;
+    background-color: white;
+    padding: 12px;
+    border-radius: 30px;
+}
+
+.hide {
+    display: none;
+}
+
+/* selected active tab */
+#detailsTabs>.nav-item>.nav-link.active {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 3px solid #37589f;
+    color: white;
+}
+
+#detailsTabs>.nav-item>.nav-link {
+    color: rgba(85, 85, 85, 0.5);
+}
+
+/* events tab */
+.eventDetails {
+    text-align: center;
+}
+
+.eventDetails>h4 {
+    font-size: 18px;
+    color: #72f3da;
+    margin-bottom: 0px;
+}
+
+.eventDetails>p {
+    font-size: 14px;
+    color: white;
+    margin-top: 5px;
+}
+
+.event-details-status {
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.eventImage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.eventImage>img {
+    width: 96%;
+}
+
+#shareEvent {
+    color: white;
+    text-align: center;
+}
+
+.fa-facebook {
+    padding-top: 5px;
+    padding-left: 12px;
+    padding-right: 3px;
+    padding-bottom: 0px;
+    font-size: 20px;
+    background: #3B5998;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.fa-twitter {
+    padding: 5px;
+    font-size: 25px;
+    color: #55ACEE;
+    text-decoration: none;
+}
+
+/* artist/teams tab */
+.artist-item {
+    padding-left: 12%;
+    padding-right: 12%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+}
+
+.artist-info>img {
+    width: 100%;
+    clip-path: circle();
+    /* makes perfect circle out of image */
+    margin-bottom: 5%;
+}
+
+.artist-info>h4,
+.artist-info>h5,
+.artist-info>h6 {
+    color: #72f3da;
+    text-align: center;
+}
+
+.artist-info>h5,
+.artist-info>h6 {
+    font-size: 18px;
+}
+
+.artist-info.popularity>h6 {
+    font-size: 12px;
+}
+
+.artist-info>p {
+    color: white;
+}
+
+.fa-spotify {
+    color: #1DB954;
+    text-decoration: none;
+    font-size: 40px;
+}
+
+.followers {
+    padding: 0%;
+    /* remove padding so followers number does not spill over */
+}
+
+.artist-info>p {
+    text-align: center
+}
+
+.artist-item>.row {
+    margin-bottom: 3%;
+}
+
+.artist-item>.row>h6 {
+    color: #72f3da;
+}
+
+#artist-albums {
+    margin-top: 2%;
+}
+
+#artist-albums>.album {
+    padding: 1%;
+    margin-top: 2%;
+    display: flex;
+    /* makes image centered to column */
+}
+
+#artist-albums>.album>img {
+    width: 90%;
+}
+
+#no-music-results {
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+}
+
+#no-music-results>div {
+    background-color: white;
+    border-radius: 15px;
+    text-align: center;
+    color: red;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* venue tab */
+.venueDetails {
+    text-align: center;
+}
+
+.venueDetails>h4 {
+    color: #72f3da;
+    font-size: 20px;
+}
+
+.venueDetails>p {
+    color: white;
+    font-size: 15px;
+}
+
+.venueDetails>.paragraph {
+    margin: 0%;
+}
+
+.venueDetails>a {
+    color: #6da7c0;
+    cursor: pointer;
+    /* margin-bottom: 3%; */
+}
+
+.venueDetails>a>i {
+    color: white;
+}
+
+.paragraph {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.paragraph.expanded {
+    /* when content is expanded (show more) */
+    -webkit-line-clamp: unset;
+}
+
+#venueGoogleMap {
+    margin-top: 5%;
+    text-align: center;
+}
+
+#venueGoogleMap button {
+    font-size: 15px;
+}
+
+@keyframes animateTop {
+
+    /* modal coming down animation */
+    from {
+        transform: translateY(-25%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+
+    /* modal fading in animation */
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.modal {
+    animation: animateTop 0.3s, fadein 0.5s;
+}
+
+.show-modal {
+    display: block;
+}
+
+/******** responsiveness for different sized screens ********/
+@media (max-width: 768px) {
+
+    /* medium screens */
+    .navbar {
+        padding: 2%;
+    }
+
+    #eventsContainer {
+        width: 95%;
+        padding: 4%;
+    }
+
+    #resultsContainer {
+        width: 100%;
+    }
+
+    #detailsContainer {
+        width: 95%;
+    }
+}

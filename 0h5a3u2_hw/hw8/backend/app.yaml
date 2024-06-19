@@ -1,0 +1,12 @@
+runtime: nodejs18
+
+# handlers:
+# - url: /
+#   script: server.js
+
+# - url: /
+#   static_files: frontend/dist/frontend/index.html
+#   upload: frontend/dist/frontend/index.html
+
+# - url: /
+#   static_dir: frontend/dist/frontend/
