@@ -1,0 +1,302 @@
+body {
+    font-family: 'Lato', sans-serif;
+    background-image: url('images/background.jpg');
+    min-height: 100vh; /* ensures it fills up entire page */
+    display: flex;
+    flex-direction: column; /* stacks children divs vertically*/
+    /* justify-content: center; */ /* centers vertically */
+    align-items: center; /* centers divs horizontally */
+    background-position: center;
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-attachment: fixed;
+    margin: 40px;
+}
+
+/********************* search events *********************/
+#eventsContainer {
+    overflow: hidden; /* resize div */
+    height: 1%; /* resize div if checkbox checked */
+    width: 700px;
+    background-color: rgba(128,128,128,0.5);
+    padding: 20px;
+    margin-bottom: 45px;
+    border-radius: 10px;
+}
+
+h1 {
+    text-align: center;
+    margin: 0 auto; /* helps w centering text */
+    color: white;
+    font-family: 'Merriweather', serif;
+    font-size: 30px;
+    font-weight: 300;
+}
+
+/* search form */
+#search-form {
+    margin-top: 20px;
+}
+
+#search-form label {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    display: block;
+    color: #99b3bb;
+    font-size: 15px;
+}
+
+.input-field {
+    float: left;
+}
+
+input,
+.category-select {
+    padding: 8px; /*height width*/
+    background: transparent;
+    border-color: white;
+    border-radius: 7px;
+    border-width: 1px;
+}
+
+input[type="text"],
+input[type="number"],
+.category-select {
+    color: white;
+}
+
+.text-danger { /* for required fields */
+    color: red;
+}
+
+#keyword-id, 
+#location-id {
+    width: 680px;
+}
+
+#distance-id {
+    width: 200px;
+    margin-right: 130px;
+}
+
+#category-id {
+    width: 350px;
+}
+
+input[name="location"] {
+    margin-top: 5px;
+}
+
+.clearfloat {
+    clear: both;
+}
+
+button {
+    margin-top: 13px;
+    height: 45px;
+    width: 110px;
+    border-color: transparent;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+#submit-btn {
+    background-color: #ff7b03;
+    box-shadow: 0px 4px #f05a0b;
+}
+
+#submit-btn:hover {
+    background-color: #fe995e;
+    /* box-shadow: 0px 4px #f05a0b; */
+}
+
+#clear-btn {
+    margin-left: 5px;
+    background-color: #577bb2;
+    box-shadow: 0px 4px #3d5479;
+}
+
+#clear-btn:hover {
+    background-color: #6688be;
+    /* box-shadow: 0px 4px #3d5479; */
+}
+
+/********************* results list *********************/
+#results-table-id {
+    /* margin: 20px; */
+    display: none; /* only show when search button is clicked */
+}
+
+#results-table-id, /* need this to avoid thick border */
+#results-table-id th, 
+#results-table-id td { /* table for displaying results */
+    background-color: white;
+    font-size: 15px;
+    border: 1px solid black;
+    border-collapse: collapse; /* avoid double border */
+    text-align: center;
+    padding: 12px;
+}
+
+/* make first row have box shadow below */
+/* #results-table-id thead tr th { 
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+} */
+
+#results-table-id .th-item {
+    cursor: pointer;
+}
+
+th.date, th.icon {
+    width: 140px;
+}
+
+th.event {
+    width: 450px;
+}
+
+th.genre {
+    width: 110px;
+}
+
+th.venue {
+    width: 170px;
+}
+
+#no-results-id {
+    width: 1110px;
+    padding: 12px;
+    background-color: white;
+    color: red;
+    text-align: center;
+    display: none; /* only show when no results come up */
+}
+
+.event-name:hover {
+    cursor: pointer;
+    color: #4a3fad; /* on hover the text changes color like hyperlink */
+}
+
+/********************* events details *********************/
+#eventDetailsContainer {
+    overflow: hidden; /* resize div */
+    height: 1%; /* resize div if checkbox checked */
+    /* width: 1000px; */
+    background-color: rgba(128,128,128,0.5);
+    padding: 40px;
+    margin-top: 45px;
+    border-radius: 15px;
+    display: none;
+}
+
+td.eventDetails {
+    width: 400px;
+}
+
+td.eventImage {
+    width: 600px;
+}
+
+#details-name-id {
+    color: white;
+    text-align: center;
+}
+
+.eventDetails > h4 {
+    font-size: 18px;
+    color: #9afde3;
+    margin-bottom: 0px;
+}
+
+.eventDetails > p {
+    font-size: 14px;
+    color: white;
+    margin-top: 5px;
+}
+
+.event-details-url {
+    color: #59c5fb;
+    text-decoration: none;
+}
+
+.event-details-status {
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+/********************* venue details *********************/
+#venueDetailsContainer {
+    width: 1070px;
+    display: flex;
+    flex-direction: column; /* stacks children divs vertically*/
+    align-items: center; /* centers divs horizontally */
+    display: none;
+}
+
+#venueDetailsDropdown {
+    text-align: center;
+    color: #929293;
+    display: none;
+}
+
+#venueDetailsDropdown > h3 {
+    font-weight: 300;
+    margin-bottom: 0px;
+}
+
+#venueDetailsDropdown > a {
+    font-size: 45px;
+    cursor: pointer;
+}
+
+#venueDetails {
+    width: 1050px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 15px;
+    margin-top: 45px;
+    display: none;
+}
+
+#venueDetails > div { /* black border inside the venue details div */
+    padding: 15px;
+    border: 2px solid black; 
+    border-radius: 15px;
+    text-align: center; /* make h2 and img centered */
+}
+
+#venueDetails > div > h2 {
+    text-decoration: underline;
+    font-weight: 400;
+}
+
+#venueDetails > div > img {
+    margin-bottom: 15px;
+}
+
+#venueDetails > div > div { /* have the two divs next to each other */
+    text-align: center;
+    display: flex;
+}
+
+#venueDetails > div > div > div { 
+    width: 510px; /* size of both divs = width of #venueDetails (1050)- padding (30) / 2 */
+}
+
+#venueDetails > div > div > div:first-child {
+    border-right: 1px solid black; /* vertical line between the two divs */
+}
+
+#venueDetails > div > div > div > p > a { /* fix hyperlink font */
+    color: #4390af;
+    text-decoration: none;
+}
+
+.address {
+    /* makes sure the content of second two lines are aligned left but still centered */
+    display: inline-block; 
+    text-align: left;
+}
