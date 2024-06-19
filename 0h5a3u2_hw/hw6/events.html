@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- css -->
+    <link rel="stylesheet" href="events.css">
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+    <!-- icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <title>Events Search</title>
+</head>
+<body>
+<div id="eventsContainer">
+    <h1>Events Search</h1>
+    <hr />
+
+    <form id="search-form" action="./" method="GET">
+        <div class="input-field">
+            <label for="keyword">Keyword<span class="text-danger">*</span></label>
+            <input type="text" id="keyword-id" name="keyword" required/>
+            <!-- small please fill out field error -->
+        </div>
+        <br class="clearfloat"/>
+        <!--------------------------->
+        <section>
+        <div class="input-field">
+            <label for="distance">Distance (miles)</span></label>
+            <input type="number" id="distance-id" name="distance" placeholder="10" step="1">
+        </div>
+        <div class="input-field">
+            <label for="category">Category<span class="text-danger">*</span></label>
+            <select class="category-select" id="category-id" name="category">
+                <option selected="" value="">Default</option>
+                <option value="KZFzniwnSyZfZ7v7nJ">Music</option>
+                <option value="KZFzniwnSyZfZ7v7nE">Sports</option>
+                <option value="KZFzniwnSyZfZ7v7na">Arts & Theatre</option>
+                <option value="KZFzniwnSyZfZ7v7nn">Film</option>
+                <option value="KZFzniwnSyZfZ7v7n1">Miscellaneous</option>
+            </select>
+            <!-- small please fill out field error -->
+        </div>
+        <br class="clearfloat"/>
+        </section>
+        <!--------------------------->
+        <section></section>
+        <label for="location">Location<span class="text-danger">*</span>
+            &nbsp;
+            <input type="checkbox" id="location-checkbox-id"/>
+            <span style="color: rgb(156, 156, 156);">Auto-Detect Location</span> <!-- checkbox for: Auto-Detect Location -->
+            <input type="text" id="location-id" name="location" required/>
+        </label>
+        <!-- small please fill out field error -->
+        <br class="clearfloat"/>
+        </section>
+        <!-- <input type="submit" value="Search"> -->
+        <button id="submit-btn">SEARCH</button>
+        <button id="clear-btn">CLEAR</button>
+    </form>
+</div>
+
+<div id="resultsContainer">
+    <table id="results-table-id">
+        <thead>
+            <tr class="results-header">
+                <th class="th-item date">Date</th>
+                <th class="th-item icon">Icon</th>
+                <th class="th-item event">Event</th>
+                <th class="th-item genre">Genre</th>
+                <th class="th-item venue">Venue</th>
+            </tr>
+            <tbody></tbody>
+        </thead>
+    </table>
+    <div id="no-results-id">
+        No records found
+    </div>
+</div>
+
+<div id="eventDetailsContainer">
+    <!-- event details added in javascript -->
+    <h2 id="details-name-id">${name}</h2>
+    <table>
+        <tr>
+            <td class="eventDetails">
+                <h4>Date</h4>
+                <p>2023-02-08</p>
+                <h4>Artist</h4>
+                <p>artist</p>
+                <h4>Venue</h4>
+                <p>venue</p>
+                <h4>Genres</h4>
+                <p>pop | r&b</p>
+            </td>
+            <td class="eventImage">
+                <img src="https://maps.ticketmaster.com/maps/geometry/3/event/0A005D6AC9DC43D8/staticImage?type=png&systemId=HOST" width="600">
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="venueDetailsContainer">
+    <div id="venueDetailsDropdown">
+        <h3>Show Venue Details</h3>
+        <a><i class="fa-thin fa fa-angle-down"></i></a>
+    </div>
+    <div id="venueDetails">
+    </div>
+</div>
+
+<script src="events.js"></script>
+</body>
+</html>
